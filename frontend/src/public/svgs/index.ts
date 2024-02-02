@@ -23,3 +23,7 @@ export { default as boardImage2 } from './boardImg2.svg';
 export { default as registerBtn } from './registerBtn.svg';
 export { default as kakaoIcon } from './icon_kakao.svg';
 export { default as naverIcon } from './icon_naver.svg';
+export { default as heartIcon } from './icon_heart.svg';
+export { default as eventIcon } from './icon_event.svg';
+export { default as shoppingCartIcon } from './icon_shopping_cart.svg';
+export { default as calenderIcon } from './icon_calender.svg';
