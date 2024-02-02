@@ -19,7 +19,7 @@ export default function NaverLogin() {
   };
 
   useEffect(() => {
-    initNaverLogin();
+    // initNaverLogin();
   }, []);
 
   return (
