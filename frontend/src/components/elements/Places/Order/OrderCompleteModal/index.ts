@@ -1,1 +1,1 @@
-export { defalut } from './OrderCompletionModal';
+export { default } from './OrderCompleteModal';

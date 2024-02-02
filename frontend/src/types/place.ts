@@ -3,7 +3,8 @@ export type PlaceMockData = {
   name: string;
   address: string;
   description: string;
-  images: string[];
+  images?: string[];
+  thumbnail: string;
 };
 
 export type PlaceDetailDataTypes = {

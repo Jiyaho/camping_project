@@ -13,7 +13,6 @@ function HistoryList() {
   }
   if (isLoading) return <div>Loading...</div>;
 
-  console.log(data);
   return (
     <section>
       <VisitedPlaces data={data} />

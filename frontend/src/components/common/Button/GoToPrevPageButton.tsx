@@ -7,7 +7,7 @@ const Button = styled.button`
   border: none;
   display: flex;
   align-items: center;
-  margin: 40px 120px 0px 120px;
+  margin: 40px 120px 30px 120px;
   background-color: transparent;
   font-size: ${Theme.fontSize.xxlarge};
   gap: 5px;

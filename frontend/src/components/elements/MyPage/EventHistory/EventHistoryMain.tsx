@@ -1,10 +1,14 @@
-import Title from '@/components/common/Title';
-import { prevArrowIcon } from '@/public/svgs';
+'use client';
+import GoToPrevPageButton from '@/components/common/Button/GoToPrevPageButton';
+import { useRouter } from 'next/navigation';
 
 function EventHistoryMain() {
+  const router = useRouter();
+
   return (
     <main>
-      <Title title="이벤트 내역" iconSrc={prevArrowIcon} href="/mypage" />
+      <GoToPrevPageButton text="이벤트 내역" onClick={() => router.push('/mypage')} />
+      EventHistoryPage
     </main>
   );
 }

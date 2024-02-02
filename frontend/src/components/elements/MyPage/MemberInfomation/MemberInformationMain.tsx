@@ -1,9 +1,9 @@
 'use client';
 
-import Title from '@/components/common/Title';
-import { prevArrowIcon } from '@/public/svgs';
 import { useState } from 'react';
 import * as Styled from './MemberInformation.styles';
+import { useRouter } from 'next/navigation';
+import GoToPrevPageButton from '@/components/common/Button/GoToPrevPageButton';
 
 function MemberInformationMain() {
   const [name, setName] = useState('');
@@ -11,6 +11,7 @@ function MemberInformationMain() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [emailCheckResult, setEmailCheckResult] = useState('');
+  const router = useRouter();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -48,7 +49,7 @@ function MemberInformationMain() {
 
   return (
     <main>
-      <Title title="회원 정보 관리" iconSrc={prevArrowIcon} href="/mypage" />
+      <GoToPrevPageButton text="회원 정보 관리" onClick={() => router.push('/mypage')} />
       <Styled.Form onSubmit={handleSubmitForm}>
         <Styled.InputBox>
           <label htmlFor="name">이름</label>

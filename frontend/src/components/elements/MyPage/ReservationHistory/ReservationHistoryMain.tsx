@@ -1,11 +1,14 @@
-import Title from '@/components/common/Title';
-import { prevArrowIcon } from '@/public/svgs';
+'use client';
+import GoToPrevPageButton from '@/components/common/Button/GoToPrevPageButton';
 import HistoryList from './HistoryList/HistoryList';
+import { useRouter } from 'next/navigation';
 
 function ReservationHistoryMain() {
+  const router = useRouter();
+
   return (
     <main>
-      <Title title="예약내역" iconSrc={prevArrowIcon} href="/mypage" />
+      <GoToPrevPageButton text="예약 내역" onClick={() => router.push('/mypage')} />
       <HistoryList />
     </main>
   );

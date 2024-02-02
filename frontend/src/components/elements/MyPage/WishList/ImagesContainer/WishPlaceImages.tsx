@@ -1,10 +1,10 @@
 import Image from 'next/image';
-import { PlaceDataTypes } from '@/types/place';
+import { PlaceMockData } from '@/types/place';
 import * as Styled from './ImagesContainer.styles';
 import { useRouter } from 'next/navigation';
 
 interface Props {
-  data: PlaceDataTypes[];
+  data: PlaceMockData[];
 }
 
 function WishPlaceImages({ data }: Props) {
