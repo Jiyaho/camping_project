@@ -92,5 +92,3 @@ export const StyledMain = styled.main`
     }
   }
 `;
-
-export default StyledMain;

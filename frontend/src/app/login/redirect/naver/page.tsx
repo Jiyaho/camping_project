@@ -1,5 +1,5 @@
 'use client';
-import { userAtom } from '@/atoms';
+import { userAtom } from '@/atoms/user';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
@@ -23,13 +23,15 @@ function NaverLoginRedirect() {
       const json = await res.json();
       const data = json.data.response;
       const userData = {
-        email: data.email || '',
-        nickname: data.nickname || '',
-        profile_image: data.profile_image || '',
-        name: data.name || '',
-        mobile: data.mobile || '',
+        email: data.email,
+        name: data.name,
+        nickname: data.nickname,
+        profile_image: data.profile_image,
       };
-      setUserData(userData);
+      setUserData({
+        isAuth: true,
+        user: userData,
+      });
       router.push('/');
     } catch (error) {
       console.log(error);
@@ -38,7 +40,6 @@ function NaverLoginRedirect() {
   useEffect(() => {
     if (window.location.href.includes('access_token')) {
       fetchUserData(token);
-      // router.push('/');
     }
   }, []);
   return <div>NaverLoginRedirect</div>;

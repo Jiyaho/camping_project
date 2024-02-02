@@ -1,20 +1,21 @@
 'use client';
 
-import Image from 'next/image';
-import { TitleWrap } from './PageTitle.styles';
-import Link from 'next/link';
+import styled from 'styled-components';
+import Theme from '@/styles/theme';
 
-type Props = {
-  href?: string;
-  iconSrc?: string;
-  title: string;
-};
-function PageTitle({ href, iconSrc, title }: Props) {
+const TitleWrap = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 20px 130px 30px 130px;
+  h1 {
+    font-size: ${Theme.fontSize.xxlarge};
+    color: ${Theme.colors.gray400};
+  }
+`;
+
+function PageTitle({ title }: { title: string }) {
   return (
     <TitleWrap>
-      <Link href={href}>
-        <Image alt="icon" src={iconSrc} width={35} height={35} />
-      </Link>
       <h1>{title}</h1>
     </TitleWrap>
   );

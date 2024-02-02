@@ -80,3 +80,10 @@ export const SearchIconBox = styled.div`
     cursor: pointer;
   }
 `;
+
+// @media screen and (max-width: ${Theme.screen.tablet}) {
+// }
+
+// @media screen and (max-width: ${Theme.screen.mobile}) {
+//   background-color: pink;
+// }

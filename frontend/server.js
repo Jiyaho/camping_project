@@ -6,14 +6,17 @@ const https = require('https');
 const fs = require('fs');
 
 const PORT = 3000;
-const HOST_NAME = 'api.campinggo.store';
+// const HOST_NAME = 'api.campinggo.store';
+const HOST_NAME = 'localhost';
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev, hostname: HOST_NAME, port: PORT });
 const handle = app.getRequestHandler();
 
 const httpsOptions = {
-  key: fs.readFileSync('./api.campinggo.store+2-key.pem'),
-  cert: fs.readFileSync('./api.campinggo.store+2.pem'),
+  key: fs.readFileSync('./localhost+2-key.pem'),
+  cert: fs.readFileSync('./localhost+2.pem'),
+  // key: fs.readFileSync('./_wildcard.campinggo.store+2-key.pem'),
+  // cert: fs.readFileSync('./_wildcard.campinggo.store+2.pem'),
 };
 
 app.prepare().then(() => {

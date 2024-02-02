@@ -1,6 +1,6 @@
 'use client';
 
-import { userAtom } from '@/atoms';
+import { userAtom } from '@/atoms/user';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
@@ -25,13 +25,15 @@ function KakaoLoginRedirect() {
       const json = await res.json();
       const data = json.data;
       const userData = {
-        email: data.kakao_account.email || '',
-        nickname: data.kakao_account.profile.nickname || '',
-        profile_image: data.kakao_account.profile.thumbnail_image_url || '',
+        email: data.kakao_account.email,
         name: '',
-        mobile: '',
+        nickname: data.kakao_account.profile.nickname,
+        profile_image: data.kakao_account.profile.thumbnail_image_url,
       };
-      setUserData(userData);
+      setUserData({
+        isAuth: true,
+        user: userData,
+      });
       router.push('/');
     } catch (error) {
       console.log(error);
