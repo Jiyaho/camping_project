@@ -19,23 +19,29 @@ import { RegionDialog } from '../RegionDialog';
 import { PeopleDialog } from '../PeopleDialog';
 import { SearchIcon } from '@/public/svgs';
 import Image from 'next/image';
+import { searchPlaceAtom } from '@/atoms/place';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRouter } from 'next/navigation';
 
 type DialogTypes = '지역' | '체크인' | '체크아웃' | '인원';
 
 export default function SearchBar() {
+  const searchValues = useRecoilValue(searchPlaceAtom);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [region, setRegion] = useState<RegionTypes>(null);
-  const [startDate, setStartDate] = useState<string | null>(null);
-  const [endDate, setEndDate] = useState<string | null>(null);
+  const [region, setRegion] = useState<string | null>(searchValues.region ?? null);
+  const [startDate, setStartDate] = useState<string | null>(searchValues.checkIn ?? null);
+  const [endDate, setEndDate] = useState<string | null>(searchValues.checkOut ?? null);
   const [dialogType, setDialogType] = useState<DialogTypes>();
 
-  const [adultNumber, setAdultNumber] = useState<number>(0);
-  const [teenNumber, setTeenNumber] = useState<number>(0);
-  const [childNumber, setChildNumber] = useState<number>(0);
-  const [petNumber, setPetNumber] = useState<number>(0);
+  const [adultNumber, setAdultNumber] = useState<number>(searchValues.adultNumber ?? 0);
+  const [teenNumber, setTeenNumber] = useState<number>(searchValues.teenNumber ?? 0);
+  const [childNumber, setChildNumber] = useState<number>(searchValues.childNumber ?? 0);
+  const [petNumber, setPetNumber] = useState<number>(searchValues.petNumber ?? 0);
   const totalNumber = adultNumber + teenNumber + childNumber + petNumber;
-
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const setSearchValues = useSetRecoilState(searchPlaceAtom);
+
+  const router = useRouter();
 
   const openDialog = (type: DialogTypes) => {
     setDialogType(type);
@@ -50,18 +56,36 @@ export default function SearchBar() {
     const { startDate, endDate } = dates;
     setStartDate(startDate);
     setEndDate(endDate);
-
     setDialogType('체크아웃');
   };
 
   const handleSubmit = () => {
-    //TODO - 제출시 지역, 체크인, 체크아웃, 인원 => recoil로 상태 변경
-    //TODO - router로 이동
+    if (!region) {
+      alert('지역을 선택해주세요!');
+    } else if (!startDate) {
+      alert('체크인 날짜를 선택해주세요!');
+    } else if (!endDate) {
+      alert('체크아웃 날짜를 선택해주세요!');
+    } else if (totalNumber === 0) {
+      alert('인원을 선택해주세요!');
+    } else {
+      // 리코일 상태 업데이트
+      setSearchValues({
+        region: region,
+        checkIn: startDate,
+        checkOut: endDate,
+        adultNumber,
+        teenNumber,
+        childNumber,
+        petNumber,
+      });
+
+      router.push('/places'); // 검색 결과 페이지로 이동
+    }
   };
 
   const handleCheckOut = (dates: SelectedDateRange) => {
     const { startDate, endDate } = dates;
-
     setStartDate(startDate);
     setEndDate(endDate);
   };
@@ -82,7 +106,7 @@ export default function SearchBar() {
     document.addEventListener('mouseup', handleOutsideClick);
 
     return () => document.removeEventListener('mouseup', handleOutsideClick);
-  });
+  }, [searchValues]);
 
   return (
     <div style={{ width: '60%' }}>

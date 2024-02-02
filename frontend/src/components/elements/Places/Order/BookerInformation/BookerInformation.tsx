@@ -4,12 +4,19 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import BookerInputBox from './fragments/BookerInputBox';
 import * as Styled from './BookerInformation.styles';
 import OrderCompletionModal from '../OrderCompleteModal/OrderCompleteModal';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { userAtom } from '@/atoms/user';
+import { useRouter } from 'next/navigation';
+import { searchPlaceAtom } from '@/atoms/place';
 
 function BookerInformation() {
-  const [name, setName] = useState('');
+  const user = useRecoilValue(userAtom);
+  const setSearchValues = useSetRecoilState(searchPlaceAtom);
+  const router = useRouter();
+  const [name, setName] = useState(user.nickname ?? '');
   const [birthDate, setBirthDate] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState(user.mobile ?? '');
+  const [email, setEmail] = useState(user.email ?? '');
   const [paymentInfo, setPaymentInfo] = useState('');
   const [openModal, setOpenModal] = useState(false);
 
@@ -40,7 +47,21 @@ function BookerInformation() {
     // todo: 예약 정보 서버로 전송
   };
 
-  const closeModal = () => setOpenModal(false);
+  const closeModal = () => {
+    setOpenModal(false);
+
+    // 검색 내역 초기화
+    setSearchValues({
+      region: null,
+      checkIn: null,
+      checkOut: null,
+      adultNumber: null,
+      teenNumber: null,
+      childNumber: null,
+      petNumber: null,
+    });
+    router.replace('/');
+  };
 
   return (
     <Styled.Container>

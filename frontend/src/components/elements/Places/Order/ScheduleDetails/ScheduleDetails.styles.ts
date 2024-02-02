@@ -20,23 +20,23 @@ export const Container = styled.section`
 export const CampsiteInfoWrap = styled.div`
   display: flex;
   gap: 15px;
+  align-items: center;
   img {
-    width: 7vw;
-    height: 7vw;
+    width: 95px;
+    height: 95px;
     object-fit: cover;
     border-radius: 10px;
   }
   ul {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 13px;
     li {
-      font-size: ${Theme.fontSize.xsmall};
+      font-size: ${Theme.fontSize.medium};
     }
     li:nth-child(1) {
       font-size: ${Theme.fontSize.large};
       font-weight: bold;
-      margin-bottom: 5px;
     }
   }
 

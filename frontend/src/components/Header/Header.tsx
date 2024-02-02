@@ -1,13 +1,13 @@
 'use client';
 
-import Link from 'next/link';
 import { Logo } from '../common/Logo';
 import { SearchBar } from './SearchBar';
-import { HeaderContainer } from './Header.style';
 import { MenuIcon } from '@/public/svgs';
 import Image from 'next/image';
 import { useState } from 'react';
 import MenuBar from './MenuBar';
+import * as Styled from './Header.style';
+import Profile from './Profile';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,21 +16,24 @@ export default function Header() {
   };
 
   return (
-    <HeaderContainer>
-      <Link style={{ width: '20%' }} href={'/'}>
+    <Styled.HeaderContainer>
+      {/* 메인 화면으로 이동 시 전역 상태 초기화를 위해 Link 컴포넌트에서 새로고침으로 변경 적용 */}
+      <Styled.LogoButtonWrap onClick={() => (window.location.href = '/')}>
         <Logo />
-      </Link>
+      </Styled.LogoButtonWrap>
       <SearchBar />
-      {/**TODO - Menu bar 구현 */}
       <div style={{ width: '10%', position: 'relative' }}>
-        <Image
-          style={{ width: '30px', cursor: 'pointer' }}
-          onClick={openMenuBar}
-          src={MenuIcon}
-          alt="menu"
-        />
+        <Styled.ProfileMenuWrap>
+          <Image
+            style={{ width: '30px', cursor: 'pointer' }}
+            onClick={openMenuBar}
+            src={MenuIcon}
+            alt="menu"
+          />
+          <Profile />
+        </Styled.ProfileMenuWrap>
         {isOpen && <MenuBar />}
       </div>
-    </HeaderContainer>
+    </Styled.HeaderContainer>
   );
 }
